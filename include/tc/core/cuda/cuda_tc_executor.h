@@ -30,10 +30,6 @@ namespace tc {
 class CudaTcExecutor : public ::tc::TcExecutor {
  public:
   CudaTcExecutor(
-      const std::string& def,
-      const std::vector<const DLTensor*>& inputsInfo)
-      : TcExecutor(def, inputsInfo) {}
-  CudaTcExecutor(
       lang::TreeRef tree,
       const std::vector<const DLTensor*>& inputsInfo)
       : TcExecutor(tree, inputsInfo) {}

@@ -33,9 +33,6 @@ using namespace dlutils;
 class TcExecutor {
  public:
   TcExecutor(
-      const std::string& TcDefinition,
-      const std::vector<const DLTensor*>& inputsInfo);
-  TcExecutor(
       lang::TreeRef TcDefinition,
       const std::vector<const DLTensor*>& inputsInfo);
   virtual ~TcExecutor();

@@ -25,26 +25,11 @@ using namespace dlutils;
 const size_t TcExecutor::InvalidHandle;
 
 namespace {
-lang::TreeRef parseOneFunction(const std::string& def) {
-  lang::Parser parser(def);
-  auto r = parser.parseFunction();
-  if (parser.L.cur().kind != lang::TK_EOF) {
-    throw lang::ErrorReport(parser.L.cur().range)
-        << "More than one TCs were passed to TcExecutor.";
-  }
-  return r;
-}
-
 int toTypeToken(DLDataType dtype) {
   return lang::TypeInfo(lang::TypeInfo::Code(dtype.code), dtype.bits)
       .toScalarToken();
 }
 } // namespace
-
-TcExecutor::TcExecutor(
-    const std::string& TcDefinition,
-    const std::vector<const DLTensor*>& inputsInfo)
-    : TcExecutor(parseOneFunction(TcDefinition), inputsInfo) {}
 
 TcExecutor::TcExecutor(
     lang::TreeRef TcDefinition,
