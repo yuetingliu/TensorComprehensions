@@ -213,7 +213,7 @@ class IslAstExprInterpeter {
 namespace {
 // In a separate process, call the LLC and dump the ASM
 // Since this is for debugging purposes only atm, separate process is fine.
-string emitAsm(const string& llvmIr) {
+std::string emitAsm(const std::string& llvmIr) {
   // Create a temporary file (do not use racy tmpname;
   // do not use tmpnam that immediately destroys the file).
   char fileCName[256] = "/tmp/XXXXXXXXXX";
