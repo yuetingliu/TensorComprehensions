@@ -386,8 +386,8 @@ void emitCopyStmt(const CodegenStatementContext& context) {
 }
 
 void AstPrinter::emitStmt(isl::ast_node_user node) {
-  isl::ast_expr usrExp = node.get_expr();
-  auto stmtId = usrExp.get_op_arg(0).get_id();
+  isl::ast_expr_op usrExp = node.get_expr().as<isl::ast_expr_op>();
+  auto stmtId = usrExp.get_arg(0).as<isl::ast_expr_id>().get_id();
   auto nodeId = node.get_annotation();
   auto statementContext = CodegenStatementContext(context_, nodeId);
 
@@ -738,8 +738,8 @@ string emitCudaKernel(
            IteratorMapsType* iteratorMaps) -> isl::ast_node {
       auto user = node.as<isl::ast_node_user>();
       CHECK(user);
-      auto expr = user.get_expr();
-      auto stmtId = expr.get_op_arg(0).get_id();
+      auto expr = user.get_expr().as<isl::ast_expr_op>();
+      auto stmtId = expr.get_arg(0).as<isl::ast_expr_id>().get_id();
       // We rename loop-related dimensions manually.
       auto schedule = build.get_schedule();
       auto scheduleSpace = build.get_schedule_space();
