@@ -66,7 +66,8 @@ ScopUPtr Scop::makeScop(
   auto tree = halide2isl::makeScheduleTree(paramSpace, components.stmt);
   scop->scheduleTreeUPtr = std::move(tree.tree);
   scop->reads = tree.reads;
-  scop->writes = tree.writes;
+  scop->mayWrites = tree.writes;
+  scop->mustWrites = isl::union_map::empty(scop->mayWrites.get_space());
   scop->halide.statements = std::move(tree.statements);
   scop->halide.accesses = std::move(tree.accesses);
   scop->halide.reductions = halide2isl::findReductions(components.stmt);
@@ -114,7 +115,8 @@ const isl::union_set Scop::domain() const {
 std::ostream& operator<<(std::ostream& os, const Scop& s) {
   os << "domain: " << s.domain() << "\n";
   os << "reads: " << s.reads << "\n";
-  os << "writes: " << s.writes << "\n";
+  os << "mayWrites: " << s.mayWrites << "\n";
+  os << "mustWrites: " << s.mustWrites << "\n";
   os << "schedule: " << *s.scheduleRoot() << "\n";
   os << "idx: { ";
   for (auto i : s.halide.idx) {
@@ -378,7 +380,7 @@ isl::schedule_constraints makeScheduleConstraints(
   auto schedule = toIslSchedule(scop.scheduleRoot());
   auto firstChildNode = scop.scheduleRoot()->child({0});
   auto reads = scop.reads.domain_factor_domain();
-  auto writes = scop.writes.domain_factor_domain();
+  auto writes = scop.mayWrites.domain_factor_domain();
 
   // RAW
   auto flowDeps = computeDependences(writes, reads, schedule);
