@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/TensorComprehensions
     resource_class: xlarge
     docker:
-      - image: tensorcomprehensions/linux-trusty-gcc4.8-cuda8-cudnn6-py3-conda:x86
+      - image: tensorcomprehensions/linux-trusty-gcc4.9-cuda8-cudnn7-py3-conda:1
 
     steps:
       - checkout
@@ -80,16 +80,6 @@ jobs:
             - third-party-install/include/THS
             - third-party-install/lib/libATen.so
             - third-party-install/lib/libATen.so.1
-            - third-party-install/lib/libTH.so
-            - third-party-install/lib/libTH.so.0
-            - third-party-install/lib/libTHC.so
-            - third-party-install/lib/libTHC.so.0
-            - third-party-install/lib/libTHCS.so
-            - third-party-install/lib/libTHCS.so.1
-            - third-party-install/lib/libTHCUNN.so
-            - third-party-install/lib/libTHNN.so
-            - third-party-install/lib/libTHS.so
-            - third-party-install/lib/libTHS.so.1
             - third-party/ATen/build/src/ATen/test
 
       - save_cache:
@@ -125,7 +115,7 @@ jobs:
     working_directory: ~/TensorComprehensions
     resource_class: xlarge
     docker:
-      - image: tensorcomprehensions/linux-xenial-gcc5-cuda9-cudnn7-py3:x86
+      - image: tensorcomprehensions/linux-xenial-gcc5-cuda9-cudnn7-py3:1
 
     steps:
       - checkout
@@ -200,16 +190,6 @@ jobs:
             - third-party-install/include/THS
             - third-party-install/lib/libATen.so
             - third-party-install/lib/libATen.so.1
-            - third-party-install/lib/libTH.so
-            - third-party-install/lib/libTH.so.0
-            - third-party-install/lib/libTHC.so
-            - third-party-install/lib/libTHC.so.0
-            - third-party-install/lib/libTHCS.so
-            - third-party-install/lib/libTHCS.so.1
-            - third-party-install/lib/libTHCUNN.so
-            - third-party-install/lib/libTHNN.so
-            - third-party-install/lib/libTHS.so
-            - third-party-install/lib/libTHS.so.1
             - third-party/ATen/build/src/ATen/test
 
       - save_cache:
